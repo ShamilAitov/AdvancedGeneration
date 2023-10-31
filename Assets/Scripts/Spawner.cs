@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
     [SerializeField] private Player _player;
-    [SerializeField] private float _seconds;
+    [SerializeField] private float _waitingTime;
 
     private void Start()
     {
@@ -15,12 +15,12 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator CreateEnemy()
     {
-        var waitForSeconds = new WaitForSeconds(_seconds);
+        var waitForSeconds = new WaitForSeconds(_waitingTime);
 
         while (true)
         {
             Enemy enemy = Instantiate(_enemy, transform.position, Quaternion.identity);
-            enemy.Init(_player);
+            enemy.SetTarget(_player);
             yield return waitForSeconds;
         }
 
